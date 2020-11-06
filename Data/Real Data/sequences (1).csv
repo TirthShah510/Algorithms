@@ -1,0 +1,2 @@
+Accession,SRA_Accession,Release_Date,Species,Genus,Family,Length,Sequence_Type,Nuc_Completeness,Genotype,Segment,Authors,Publications,Geo_Location,USA,Host,Isolation_Source,Collection_Date,BioSample,GenBank_Title
+MN831177,,2020-09-30T00:00:00Z,Rat astrovirus,,Astroviridae,363,GenBank,partial,,,"He,Q.",,China,,Rattus,feces,2019,,"Rat astrovirus isolate BJ2019RatAsV06 RdRp gene, partial cds"

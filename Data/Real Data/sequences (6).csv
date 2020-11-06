@@ -1,0 +1,2 @@
+Accession,SRA_Accession,Release_Date,Species,Genus,Family,Length,Sequence_Type,Nuc_Completeness,Genotype,Segment,Authors,Publications,Geo_Location,USA,Host,Isolation_Source,Collection_Date,BioSample,GenBank_Title
+MN693336,"SRR10378147,SRR10378148",2020-01-11T00:00:00Z,Marine virus AFVG_25M235,,,30832,GenBank,complete,,,"Beaulaurier,J., Luo,E., Eppley,J.M., Uyl,P.D., Dai,X., Burger,A., Turner,D.J., Pendelton,M., Juul,S., Harrington,E., DeLong,E.F.",32075851,Pacific Ocean: North Pacific Subtropical Gyre,,,,2019-08-02,SAMN13162580,"Marine virus AFVG_25M235, complete genome"

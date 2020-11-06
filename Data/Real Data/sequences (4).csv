@@ -1,0 +1,2 @@
+Accession,SRA_Accession,Release_Date,Species,Genus,Family,Length,Sequence_Type,Nuc_Completeness,Genotype,Segment,Authors,Publications,Geo_Location,USA,Host,Isolation_Source,Collection_Date,BioSample,GenBank_Title
+MT597439,,2020-09-30T00:00:00Z,Dengue virus,Flavivirus,Flaviviridae,10252,GenBank,partial,4,,"Hwang,E.-H.",,South Korea,,Homo sapiens,blood,2010,,"Dengue virus 2 isolate 43257 polyprotein (POLY) gene, partial cds; and sfRNA2 lncRNA gene, partial sequence"

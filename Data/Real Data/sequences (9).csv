@@ -1,0 +1,2 @@
+Accession,SRA_Accession,Release_Date,Species,Genus,Family,Length,Sequence_Type,Nuc_Completeness,Genotype,Segment,Authors,Publications,Geo_Location,USA,Host,Isolation_Source,Collection_Date,BioSample,GenBank_Title
+KT001914,,2015-08-09T00:00:00Z,Caulobacter virus Seuss,Seussvirus,Siphoviridae,85138,GenBank,complete,,,"Sloan,J.M., Keene,J.L., Cahill,J.L., Rasche,E.S., Kuty Everett,G.F., Keene,J., Everett,G.F.K.",26430045,,,Caulobacter vibrioides,,,,"Caulobacter phage Seuss, complete genome"
