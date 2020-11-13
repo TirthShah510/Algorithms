@@ -1,2 +1,5 @@
-public class KMP {
+public class KMP{
+
+    public static void function(String filePath) {
+    }
 }
