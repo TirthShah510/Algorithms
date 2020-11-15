@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class RabinKarp {
@@ -54,38 +55,41 @@ public class RabinKarp {
         }
     }
 
-//    public static void main(String[] args) throws IOException {
-//        HashMap<Character,Integer> map = new HashMap<>();
-//        Character[] alphabets = new Character[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-//        for(int i=0; i<26;i++){
-//            map.put(alphabets[i], i+1);
-//        }
-//
-//
-//        long startTime = System.nanoTime();
-//
-//        StringBuilder txt = new StringBuilder();
-//        String demo;
-//        BufferedReader bufferedReader = new BufferedReader(new FileReader("./Data/Real Data/10.txt"));
-////        BufferedReader bufferedReader = new BufferedReader(new FileReader("10.txt"));
-//        while (!bufferedReader.readLine().equals("DNA")) {
-//        }
-//        demo  = bufferedReader.readLine();
-//        while(!(demo.equals("Pattern"))) {
-//            txt.append(demo);
-//            demo = bufferedReader.readLine();
-//        }
-//
-//        StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
-//        int q = 13;
-//        search(pattern.toString(), txt.toString(), q, map);
-//        long endTime   = System.nanoTime();
-//        long totalTime = endTime - startTime;
-//        System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
-////        search("ACC", "CAACC",13);
-//    }
+    /*public static void main(String[] args) throws IOException {
+        HashMap<Character,Integer> map = new HashMap<>();
+        Character[] alphabets = new Character[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        for(int i=0; i<26;i++){
+            map.put(alphabets[i], i+1);
+        }
 
-    public static void function(String filePath) throws IOException {
+
+        Scanner sc = new Scanner(System.in);
+        String fileName = sc.nextLine();
+        long startTime = System.nanoTime();
+
+        StringBuilder txt = new StringBuilder();
+        String demo;
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("./Data/Real Data/"+fileName));
+//        BufferedReader bufferedReader = new BufferedReader(new FileReader("10.txt"));
+        while (!bufferedReader.readLine().equals("DNA")) {
+        }
+        demo  = bufferedReader.readLine();
+        while(!(demo.equals("Pattern"))) {
+            txt.append(demo);
+            demo = bufferedReader.readLine();
+        }
+
+        StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
+        int q = 13;
+        search(pattern.toString(), txt.toString(), q, map);
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
+//        search("ACC", "CAACC",13);
+    }*/
+
+    public static void function(String filePath, String dataType) throws IOException {
 
         HashMap<Character,Integer> map = new HashMap<>();
         Character[] alphabets = new Character[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
@@ -93,6 +97,7 @@ public class RabinKarp {
             map.put(alphabets[i], i+1);
         }
 
+        System.out.println(dataType);
 
         long startTime = System.nanoTime();
 

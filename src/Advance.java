@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Advance{
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
 
         long startTime = System.nanoTime();
 
@@ -73,8 +74,73 @@ public class Advance{
         long totalTime = endTime - startTime;
         System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
 
-    }
+    }*/
 
-    public static void function(String filePath) {
+    public static void function(String filePath, String dataType) throws IOException {
+
+        System.out.println(dataType);
+        long startTime = System.nanoTime();
+
+        StringBuilder txt = new StringBuilder();
+        String demo;
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+//        BufferedReader bufferedReader = new BufferedReader(new FileReader("10.txt"));
+        while (!bufferedReader.readLine().equals("DNA")) {
+        }
+        demo  = bufferedReader.readLine();
+        while(!(demo.equals("Pattern"))) {
+            txt.append(demo);
+            demo = bufferedReader.readLine();
+        }
+
+        StringBuilder pat = new StringBuilder(bufferedReader.readLine());
+
+//        String txt = "ACTGGGTCACTGGTCTGT";
+//        String pat = "CTGG";
+        int n = txt.length();
+        int m = pat.length();
+        int world_len = 4;
+        int count = 0;
+        int num_window = 0;
+        List<Integer> window_index = new ArrayList<>();
+        while(count <= n-m){
+
+            if(txt.substring(count, count + world_len).equals(pat.substring(0, world_len))){
+                window_index.add(count);
+                num_window = num_window+1;
+            }
+            count++;
+        }
+        int k = m % world_len;
+        int start_index;
+        if(k==0){
+            start_index = world_len;
+        }else{
+            start_index = k;
+        }
+        count = 0;
+        int s, c;
+        int num_match = 0;
+        List<Integer> match_index = new ArrayList<>();
+        while(count < num_window){
+            s = window_index.get(count);
+            c = start_index;
+            while(c<=m-world_len){
+                if(!pat.substring(c, c + world_len).equals(txt.substring(s + c, s + c + world_len))){
+                    break;
+                }
+                c = c+world_len;
+            }
+            if(c==m){
+                match_index.add(s+1);
+                num_match = num_match + 1;
+            }
+            count++;
+        }
+
+        System.out.println(match_index);
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
     }
 }
