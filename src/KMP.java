@@ -1,5 +1,42 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class KMP {
-	void KMPSearch(String pat, String txt) {
+	public static void function(String filePath, String dataType) throws IOException {
+		long startTime = System.nanoTime();
+
+		StringBuilder txt = new StringBuilder();
+		String demo;
+		BufferedReader bufferedReader = null;
+
+		try{
+			bufferedReader = new BufferedReader(new FileReader(filePath));
+		}catch (IOException ioException){
+			System.out.println("File does not exist");
+			System.exit(0);
+		}
+		System.out.println(dataType);
+		System.out.println("DNA Length: "+bufferedReader.readLine());
+		while (!bufferedReader.readLine().equals("DNA")) {
+		}
+		demo  = bufferedReader.readLine();
+		while(!(demo.equals("Pattern"))) {
+			txt.append(demo);
+			demo = bufferedReader.readLine();
+		}
+		StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
+		int q = 13;
+		search(pattern.toString(), txt.toString());
+		long endTime   = System.nanoTime();
+		long totalTime = endTime - startTime;
+		System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
+		System.out.println("-----------------------------------------------------------------------------------------");
+
+	}
+
+	static void search(String pat, String txt) {
 		int M = pat.length();
 		int N = txt.length();
 
@@ -36,7 +73,7 @@ public class KMP {
 		}
 	}
 
-	void computeLPSArray(String pat, int M, int lps[]) {
+	static void computeLPSArray(String pat, int M, int lps[]) {
 		// length of the previous longest prefix suffix
 		int len = 0;
 		int i = 1;
@@ -68,17 +105,5 @@ public class KMP {
 	}
 
 	// Driver program to test above function
-	public static void main(String args[]) {
 
-		String txt = "";
-		String pat = "CCGT";
-		long start = System.currentTimeMillis();
-		long txtLength = txt.length();
-		long patLength = pat.length();
-		new KMP().KMPSearch(pat, txt);
-		System.out.println("For Sequence Length: " + txt.length() + " and pattern length : " + pat.length());
-		long end = System.currentTimeMillis();
-		long executionTime = end - start;
-		System.out.println(executionTime + " ms");
-	}
 }
