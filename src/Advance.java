@@ -73,10 +73,9 @@ public class Advance{
             }
             count++;
         }
-
-        System.out.println(match_index);
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
         System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
+        System.out.println(match_index);
     }
 }

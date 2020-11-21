@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class Naive {
 	public static void function(String filePath, String dataType) throws IOException {
+		long startTime = System.currentTimeMillis();
 		StringBuilder txt = new StringBuilder();
 		String demo;
 		BufferedReader bufferedReader = null;
@@ -26,7 +27,7 @@ public class Naive {
 		}
 		StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
 		// int q = 13;
-		long startTime = System.currentTimeMillis();
+
 		search(txt.toString(), pattern.toString());
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;

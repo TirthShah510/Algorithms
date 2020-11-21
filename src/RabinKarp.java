@@ -1,14 +1,13 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class RabinKarp {
-    public final static int d = 33;
+    public final static int d = 10;
 
-    static void search(String pattern, String txt, int q, HashMap<Character,Integer> map) {
+    static void search(String pattern, String txt, int q) {
 
         int patternLength = pattern.length();
         int DNALength = txt.length();
@@ -22,15 +21,9 @@ public class RabinKarp {
 
         // Calculate hash value for pattern and text
         for (i = 0; i < patternLength; i++) {
-            p = (d * p + map.get(pattern.charAt(i))) % q;
-            t = (d * t + map.get(txt.charAt(i))) % q;
+            p = (d * p + pattern.charAt(i)) % q;
+            t = (d * t + txt.charAt(i)) % q;
         }
-
-
-//        for(i=0; i<patternLength;i++){
-//            p = 33 * p + pattern.charAt(i);
-//            t = 33 * t + pattern.charAt(i);
-//        }
 
         // Find the match
         for (i = 0; i <= DNALength - patternLength; i++) {
@@ -47,7 +40,7 @@ public class RabinKarp {
             if (i < DNALength - patternLength) {
 //                System.out.println(txt.charAt(i+patternLength));
 //                System.out.println(map.get(txt.charAt(i+patternLength)));
-                t = (d * (t - map.get(txt.charAt(i)) * h) + map.get(txt.charAt(i + patternLength))) % q;
+                t = (d * (t - txt.charAt(i) * h) + txt.charAt(i + patternLength)) % q;
                 if (t < 0)
                     t = (t + q);
             }
@@ -55,12 +48,11 @@ public class RabinKarp {
     }
 
     public static void function(String filePath, String dataType) throws IOException {
-
-        HashMap<Character,Integer> map = new HashMap<>();
-        Character[] alphabets = new Character[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-        for(int i=0; i<26;i++){
-            map.put(alphabets[i], i+1);
-        }
+//        HashMap<Character,Integer> map = new HashMap<>();
+//        Character[] alphabets = new Character[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+//        for(int i=0; i<26;i++){
+//            map.put(alphabets[i], i+1);
+//        }
 
         long startTime = System.nanoTime();
 
@@ -85,7 +77,7 @@ public class RabinKarp {
         }
         StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
         int q = 13;
-        search(pattern.toString(), txt.toString(), q, map);
+        search(pattern.toString(), txt.toString(), q);
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
         System.out.println(TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS));
