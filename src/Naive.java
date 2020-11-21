@@ -48,8 +48,8 @@ public class Naive {
 				if (txt.charAt(i + j) != pat.charAt(j))
 					break;
 
-			if (j == patternLength)
-				System.out.println("Pattern found at index " + i);
+//			if (j == patternLength)
+//				System.out.println("Pattern found at index " + i);
 		}
 	}
 }

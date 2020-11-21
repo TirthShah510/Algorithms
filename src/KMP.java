@@ -56,7 +56,7 @@ public class KMP {
 				i++;
 			}
 			if (j == M) {
-				System.out.println("Found pattern " + "at index " + (i - j));
+//				System.out.println("Found pattern " + "at index " + (i - j));
 				// System.out.println("Pattern from index : " + j + " to :" + i);
 				j = lps[j - 1];
 			}

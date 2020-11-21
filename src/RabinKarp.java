@@ -33,8 +33,8 @@ public class RabinKarp {
                         break;
                 }
 
-                if (j == patternLength)
-                    System.out.println("Pattern is found at position: " + (i + 1));
+//                if (j == patternLength)
+//                    System.out.println("Pattern is found at position: " + (i + 1));
             }
 
             if (i < DNALength - patternLength) {
