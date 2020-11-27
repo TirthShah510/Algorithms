@@ -60,7 +60,7 @@ class Quick{
 			the above loop */
             if (j >= m)
             {
-                System.out.println("Patterns occur at shift = " + s);
+//                System.out.println("Patterns occur at shift = " + s);
 
 			/* Shift the pattern so that the next
 				character in text aligns with the last
