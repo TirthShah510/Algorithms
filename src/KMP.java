@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class KMP {
     public static void function(String filePath, String dataType) throws IOException {
@@ -40,6 +41,7 @@ public class KMP {
 
         int patternLength = pattern.length();
         int dnaLength = dna.length();
+        ArrayList<Integer> patternOccurrenceIndex = new ArrayList<>();
 
         // create lps[] that will hold the longest
         // prefix suffix values for pattern
@@ -50,29 +52,27 @@ public class KMP {
         // array)
         computeLPSArray(pattern, patternLength, lps);
 
-        int i = 0; // index for txt[]
-        while (i < dnaLength) {
-            if (pattern.charAt(j) == dna.charAt(i)) {
+        int index = 0; // index for txt[]
+        while (index < dnaLength) {
+            if (pattern.charAt(j) == dna.charAt(index)) {
                 j++;
-                i++;
+                index++;
             }
             if (j == patternLength) {
-                System.out.println("Found pattern " + "at index " + (i - j));
-                // System.out.println("Pattern from index : " + j + " to :" + i);
+                patternOccurrenceIndex.add(index - j);
                 j = lps[j - 1];
-            }
-
-            // mismatch after j matches
-            else if (i < dnaLength && pattern.charAt(j) != dna.charAt(i)) {
+            } else if (index < dnaLength && pattern.charAt(j) != dna.charAt(index)) {
+                // mismatch after j matches
                 // Do not match lps[0..lps[j-1]] characters,
                 // they will match anyway
-                if (j != 0)
+                if (j != 0) {
                     j = lps[j - 1];
-                else
-                    i = i + 1;
+                } else {
+                    index++;
+                }
             }
         }
-
+        System.out.println(patternOccurrenceIndex);
     }
 
     static void computeLPSArray(String pat, int M, int lps[]) {
@@ -87,8 +87,7 @@ public class KMP {
                 len++;
                 lps[i] = len;
                 i++;
-            } else // (pat[i] != pat[len])
-            {
+            } else {
                 // This is tricky. Consider the example.
                 // AAACAAAA and i = 7. The idea is similar
                 // to search step.
@@ -97,8 +96,8 @@ public class KMP {
 
                     // Also, note that we do not increment
                     // i here
-                } else // if (len == 0)
-                {
+                } else {
+                    // if (len == 0)
                     lps[i] = len;
                     i++;
                 }
