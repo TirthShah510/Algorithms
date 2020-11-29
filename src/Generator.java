@@ -147,7 +147,7 @@ public class Generator {
         generatedOutput.append(first_char); // first character added
 
         char prev;
-        for (int i = 1; i <= length; i++) {
+        for (int i = 1; i < length; i++) {
             prev = generatedOutput.charAt(i - 1); // to keep track of previous character
             generatedOutput.append(generateCharacter(prev));
         }

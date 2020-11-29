@@ -11,22 +11,18 @@ public class Main {
         String[] seperate = fileName.split("\\.");
         String f = seperate[0];
         char[] fdash = f.toCharArray();
+
         for (char c : fdash) {
             if (c == 'r') {
-//		if (fileName.charAt(1) == 'r') {
-				Naive.function("./Data/Real Data/" + fileName, "Real Data");
+                Naive.function("./Data/Real Data/" + fileName, "Real Data");
                 RabinKarp.function("./Data/Real Data/" + fileName, "Real Data");
                 KMP.function("./Data/Real Data/" + fileName, "Real Data");
-//				Advance.function("./Data/Real Data/" + fileName, "Real Data");
-//				AWQ.function("./Data/Real Data/" + fileName, "Real Data");
-				Quick.function("./Data/Real Data/" + fileName, "Real Data");
+                Quick.function("./Data/Real Data/" + fileName, "Real Data");
             } else if (c == 's') {
-				Naive.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
+                Naive.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
                 RabinKarp.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
                 KMP.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
-//				Advance.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
-//				AWQ.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
-				Quick.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
+                Quick.function("./Data/Synthetic Data/" + fileName, "Synthetic Data");
             }
         }
         sc.close();
