@@ -18,6 +18,7 @@ public class KMP {
             System.out.println("File does not exist");
             System.exit(0);
         }
+        System.out.println("****** Knuth-Morris-Pratt ******");
         System.out.println(dataType);
         System.out.println("DNA Length: " + bufferedReader.readLine());
         while (!bufferedReader.readLine().equals("DNA")) {
@@ -32,7 +33,7 @@ public class KMP {
         search(dna.toString(), pattern.toString());
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        System.out.println("Time taken by KMP ---->   " + totalTime);
+        System.out.println("Time taken by KMP ---->   " + totalTime + " milliseconds");
         System.out.println("-----------------------------------------------------------------------------------------");
 
     }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Naive {
+
+    /***** Driver Phase *****/
     public static void function(String filePath, String dataType) throws IOException {
 
         long startTime = System.currentTimeMillis();
@@ -18,6 +20,7 @@ public class Naive {
             System.out.println("File does not exist");
             System.exit(0);
         }
+        System.out.println("****** Naive ******");
         System.out.println(dataType);
         System.out.println("DNA Length: " + bufferedReader.readLine());
         while (!bufferedReader.readLine().equals("DNA")) {
@@ -32,11 +35,12 @@ public class Naive {
         search(dna.toString(), pattern.toString());
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        System.out.println("Time taken by Naive ---->   " + totalTime);
+        System.out.println("Time taken by Naive ---->   " + totalTime + " milliseconds");
         System.out.println("-----------------------------------------------------------------------------------------");
 
     }
 
+    /***** Matching Phase*****/
     public static void search(String dna, String pattern) {
 
         int patternLength = pattern.length();

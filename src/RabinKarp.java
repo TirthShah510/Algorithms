@@ -8,6 +8,7 @@ public class RabinKarp {
     // selected base value for calculating the hash value
     public final static int d = 10;
 
+    /***** Driver Phase *****/
     public static void function(String filePath, String dataType) throws IOException {
 
         long startTime = System.currentTimeMillis();
@@ -22,6 +23,7 @@ public class RabinKarp {
             System.out.println("File does not exist");
             System.exit(0);
         }
+        System.out.println("****** Rabin-Karp ******");
         System.out.println(dataType);
         System.out.println("DNA Length: " + bufferedReader.readLine());
         while (!bufferedReader.readLine().equals("DNA")) {
@@ -36,10 +38,11 @@ public class RabinKarp {
         search(dna.toString(), pattern.toString(), q);
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        System.out.println("Time taken by Rabin-Karp ---->   " + totalTime);
+        System.out.println("Time taken by Rabin-Karp ---->   " + totalTime + " milliseconds");
         System.out.println("-----------------------------------------------------------------------------------------");
     }
 
+    /***** Matching Phase *****/
     // Function checks whether pattern occurs in DNA or not
     // If yes then find all the occurrences of the pattern in DNA
     public static void search(String dna, String pattern, int q) {
