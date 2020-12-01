@@ -5,41 +5,61 @@ import java.util.ArrayList;
 
 public class RabinKarp {
 
+    static ArrayList<Long> time = new ArrayList<>();
+
     // selected base value for calculating the hash value
     public final static int d = 10;
 
     /***** Driver Phase *****/
-    public static void function(String filePath, String dataType) throws IOException {
+    public static void function(String filePath, String dataType, int run) throws IOException {
 
-        long startTime = System.currentTimeMillis();
+        for(int i=0; i<run; i++){
 
-        StringBuilder dna = new StringBuilder();
-        String demo;
-        BufferedReader bufferedReader = null;
+            long startTime = System.currentTimeMillis();
 
-        try {
-            bufferedReader = new BufferedReader(new FileReader(filePath));
-        } catch (IOException ioException) {
-            System.out.println("File does not exist");
-            System.exit(0);
-        }
-        System.out.println("****** Rabin-Karp ******");
-        System.out.println(dataType);
-        System.out.println("DNA Length: " + bufferedReader.readLine());
-        while (!bufferedReader.readLine().equals("DNA")) {
-        }
-        demo = bufferedReader.readLine();
-        while (!(demo.equals("Pattern"))) {
-            dna.append(demo);
+            StringBuilder dna = new StringBuilder();
+            String demo;
+            BufferedReader bufferedReader = null;
+
+            try {
+                bufferedReader = new BufferedReader(new FileReader(filePath));
+            } catch (IOException ioException) {
+                System.out.println("File does not exist");
+                System.exit(0);
+            }
+            System.out.println("****** Rabin-Karp ******");
+            System.out.println(dataType);
+            System.out.println("DNA Length: " + bufferedReader.readLine());
+            while (!bufferedReader.readLine().equals("DNA")) {
+            }
             demo = bufferedReader.readLine();
-        }
-        StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
-        int q = 13;
+            while (!(demo.equals("Pattern"))) {
+                dna.append(demo);
+                demo = bufferedReader.readLine();
+            }
+            StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
+            int q = 13;
+
+        /*for(int i=0; i<run; i++){
+            long startTime1 = System.currentTimeMillis();
+            search(dna.toString(), pattern.toString(), q);
+            long endTime1 = System.currentTimeMillis();
+            long totalTime1 = endTime1 - startTime1;
+            time.add(totalTime1);
+        }*/
+
+
+
         search(dna.toString(), pattern.toString(), q);
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-        System.out.println("Time taken by Rabin-Karp ---->   " + totalTime + " milliseconds");
-        System.out.println("-----------------------------------------------------------------------------------------");
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+            System.out.println("Time taken by Rabin-Karp ---->   " + totalTime + " milliseconds");
+            System.out.println("-----------------------------------------------------------------------------------------");
+
+            time.add(totalTime);
+        }
+
+        System.out.println("TIME RABIN KARP: " + time);
     }
 
     /***** Matching Phase *****/

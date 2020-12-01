@@ -5,42 +5,62 @@ import java.util.ArrayList;
 
 class Quick {
 
+    static ArrayList<Long> time = new ArrayList<>();
+
     static int Chars = 256;
 
     /***** Driver Phase *****/
     // Function to read the DNA string and Pattern from the user given file
-    public static void function(String filePath, String dataType) throws IOException {
+    public static void function(String filePath, String dataType, int run) throws IOException {
 
-        long startTime = System.currentTimeMillis();
+        for(int i=0; i<run; i++){
 
-        StringBuilder txt = new StringBuilder();
-        String demo;
-        BufferedReader bufferedReader = null;
+            long startTime = System.currentTimeMillis();
 
-        try {
-            bufferedReader = new BufferedReader(new FileReader(filePath));
-        } catch (IOException ioException) {
-            System.out.println("File does not exist");
-            System.exit(0);
-        }
-        System.out.println("****** Quick Search ******");
-        System.out.println(dataType);
-        System.out.println("DNA Length: " + bufferedReader.readLine());
+            StringBuilder txt = new StringBuilder();
+            String demo;
+            BufferedReader bufferedReader = null;
 
-        while (!bufferedReader.readLine().equals("DNA")) {
-        }
-        demo = bufferedReader.readLine();
-        while (!(demo.equals("Pattern"))) {
-            txt.append(demo);
+            try {
+                bufferedReader = new BufferedReader(new FileReader(filePath));
+            } catch (IOException ioException) {
+                System.out.println("File does not exist");
+                System.exit(0);
+            }
+            System.out.println("****** Quick Search ******");
+            System.out.println(dataType);
+            System.out.println("DNA Length: " + bufferedReader.readLine());
+
+            while (!bufferedReader.readLine().equals("DNA")) {
+            }
             demo = bufferedReader.readLine();
-        }
-        StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
-        int q = 13;
+            while (!(demo.equals("Pattern"))) {
+                txt.append(demo);
+                demo = bufferedReader.readLine();
+            }
+            StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
+
+            /*for(int i=0; i<run; i++){
+                long startTime1 = System.currentTimeMillis();
+                search(txt.toString().toCharArray(), pattern.toString().toCharArray());
+                long endTime1 = System.currentTimeMillis();
+                long totalTime1 = endTime1 - startTime1;
+                time.add(totalTime1);
+            }*/
+
+
+
+
         search(txt.toString().toCharArray(), pattern.toString().toCharArray());
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-        System.out.println("Time taken by Quick Search ---->   " + totalTime + " milliseconds");
-        System.out.println("-----------------------------------------------------------------------------------------");
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+            System.out.println("Time taken by Quick Search ---->   " + totalTime + " milliseconds");
+            System.out.println("-----------------------------------------------------------------------------------------");
+
+            time.add(totalTime);
+        }
+
+        System.out.println("TIME QUICK: " + time);
     }
 
 
@@ -98,5 +118,6 @@ class Quick {
                 return;
             }
         }
+        System.out.println(patternOccurrenceIndex);
     }
 }
