@@ -81,7 +81,7 @@ class Quick {
 
         while (index <= (dnaLength - patternLength)) {
 
-            // j keep track of matched charater of the DNA with pattern
+            // j keep track of matched character of the DNA with pattern
             int j = 0;
 
 

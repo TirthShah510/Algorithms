@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +9,9 @@ public class RabinKarp {
     static ArrayList<Long> time = new ArrayList<>();
 
     // selected base value for calculating the hash value
-    public final static int d = 10;
+    public final static int d = 4;
+
+    public final static int primeDigit = 13;
 
     /***** Driver Phase *****/
     public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexRabinKarp) throws IOException {
@@ -39,9 +39,8 @@ public class RabinKarp {
                 demo = bufferedReader.readLine();
             }
             StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
-            int primeDigit = 13;
 
-            search(dna.toString().toCharArray(), pattern.toString().toCharArray(), primeDigit, indexRabinKarp);
+            search(dna.toString().toCharArray(), pattern.toString().toCharArray(), indexRabinKarp);
 
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
@@ -54,7 +53,7 @@ public class RabinKarp {
     /***** Matching Phase *****/
     // Function checks whether pattern occurs in DNA or not
     // If yes then find all the occurrences of the pattern in DNA
-    public static void search(char[] dna, char[] pattern, int q, HashSet<Integer> indexRabinKarp) {
+    public static void search(char[] dna, char[] pattern, HashSet<Integer> indexRabinKarp) {
 
         int i, j;
         int index = 0;
@@ -63,16 +62,15 @@ public class RabinKarp {
         int patternHash = 0;
         int dnaHash = 0;
         int h = 1;
-//        ArrayList<Integer> indexRabinKarp = new ArrayList<>();
 
         for (i = 0; i < patternLength - 1; i++) {
-            h = (h * d) % q;
+            h = (h * d) % primeDigit;
         }
 
         // Calculate hash value for pattern and DNA
         for (i = 0; i < patternLength; i++) {
-            patternHash = (d * patternHash + pattern[i]) % q;
-            dnaHash = (d * dnaHash + dna[i]) % q;
+            patternHash = (d * patternHash + pattern[i]) % primeDigit;
+            dnaHash = (d * dnaHash + dna[i]) % primeDigit;
         }
 
         // Find the match
@@ -93,17 +91,24 @@ public class RabinKarp {
                     indexRabinKarp.add(index);
                 }
             }
-
-            if (index < dnaLength - patternLength) {
-
-                // Calculates the hash value for next substring of DNA in order to find pattern
-                dnaHash = (d * (dnaHash - dna[index] * h) + dna[index + patternLength]) % q;
-
-                if (dnaHash < 0) {
-                    dnaHash = (dnaHash + q);
-                }
-            }
+            dnaHash = computeHash(index, dnaLength, patternLength, dnaHash, dna, h);
             index++;
         }
+    }
+
+    /***** Hash Function *****/
+    private static int computeHash(int index, int dnaLength, int patternLength, int dnaHash, char[] dna, int h) {
+
+        if (index < dnaLength - patternLength) {
+
+            // Calculates the hash value for next substring of DNA in order to find pattern
+            dnaHash = (d * (dnaHash - dna[index] * h) + dna[index + patternLength]) % primeDigit;
+
+            if (dnaHash < 0) {
+                dnaHash = (dnaHash + primeDigit);
+            }
+        }
+
+        return dnaHash;
     }
 }
