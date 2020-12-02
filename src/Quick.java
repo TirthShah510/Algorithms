@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 class Quick {
 
@@ -11,9 +12,9 @@ class Quick {
 
     /***** Driver Phase *****/
     // Function to read the DNA string and Pattern from the user given file
-    public static void function(String filePath, String dataType, int run) throws IOException {
+    public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexQuick) throws IOException {
 
-        for(int i=0; i<run; i++){
+        for (int i = 0; i < run; i++) {
 
             long startTime = System.currentTimeMillis();
 
@@ -27,9 +28,6 @@ class Quick {
                 System.out.println("File does not exist");
                 System.exit(0);
             }
-            System.out.println("****** Quick Search ******");
-            System.out.println(dataType);
-            System.out.println("DNA Length: " + bufferedReader.readLine());
 
             while (!bufferedReader.readLine().equals("DNA")) {
             }
@@ -40,27 +38,14 @@ class Quick {
             }
             StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
 
-            /*for(int i=0; i<run; i++){
-                long startTime1 = System.currentTimeMillis();
-                search(txt.toString().toCharArray(), pattern.toString().toCharArray());
-                long endTime1 = System.currentTimeMillis();
-                long totalTime1 = endTime1 - startTime1;
-                time.add(totalTime1);
-            }*/
+            search(txt.toString().toCharArray(), pattern.toString().toCharArray(), indexQuick);
 
-
-
-
-        search(txt.toString().toCharArray(), pattern.toString().toCharArray());
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
-            System.out.println("Time taken by Quick Search ---->   " + totalTime + " milliseconds");
-            System.out.println("-----------------------------------------------------------------------------------------");
 
             time.add(totalTime);
         }
-
-        System.out.println("TIME QUICK: " + time);
+        return time;
     }
 
 
@@ -70,22 +55,21 @@ class Quick {
     public static void lastOccurrenceChar(char[] pattern, int indexLastOccurChar[]) {
 
         // Fill the correct index of last occurrence of the given character
-        for (int i = 0; i < pattern.length; i++){
+        for (int i = 0; i < pattern.length; i++) {
             indexLastOccurChar[(int) pattern[i]] = pattern.length - i - 1;
         }
     }
 
     /***** Pattern Matching Phase *****/
     // Function to search occurrence of the pattern in the DNA
-    public static void search(char[] dna, char[] pattern) {
+    public static void search(char[] dna, char[] pattern, HashSet<Integer> indexQuick) {
 
         int[] indexLastOccurChar = new int[Chars];
+
         // Initialize all last occurrences of characters with length of the pattern
-        for (int i = 0; i < Chars; i++){
+        for (int i = 0; i < Chars; i++) {
             indexLastOccurChar[i] = pattern.length;
         }
-
-        ArrayList<Integer> patternOccurrenceIndex = new ArrayList<>();
 
         int dnaLength = dna.length;
         int patternLength = pattern.length;
@@ -102,22 +86,20 @@ class Quick {
 
 
             // Keep increasing j until pattern found or failure occur in the matching
-            while (j < patternLength && pattern[j] == dna[index + j]){
+            while (j < patternLength && pattern[j] == dna[index + j]) {
                 j++;
                 // if j reaches to the length of the pattern then pattern found
                 if (j >= patternLength) {
-                    patternOccurrenceIndex.add(index);
+                    indexQuick.add(index);
                 }
             }
 
             // This checks if it still have room to make shift in the DNA
-            if (index + patternLength < dnaLength){
+            if (index + patternLength < dnaLength) {
                 index += indexLastOccurChar[dna[index + patternLength]] + 1;
-            }else{
-                System.out.println(patternOccurrenceIndex);
+            } else {
                 return;
             }
         }
-        System.out.println(patternOccurrenceIndex);
     }
 }

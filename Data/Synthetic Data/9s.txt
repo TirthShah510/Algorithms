@@ -1,6 +1,0 @@
-10
-4
-DNA
-TACCTGACT
-Pattern
-ACCT

@@ -1,7 +1,10 @@
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RabinKarp {
 
@@ -11,9 +14,9 @@ public class RabinKarp {
     public final static int d = 10;
 
     /***** Driver Phase *****/
-    public static void function(String filePath, String dataType, int run) throws IOException {
+    public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexRabinKarp) throws IOException {
 
-        for(int i=0; i<run; i++){
+        for (int i = 0; i < run; i++) {
 
             long startTime = System.currentTimeMillis();
 
@@ -27,9 +30,7 @@ public class RabinKarp {
                 System.out.println("File does not exist");
                 System.exit(0);
             }
-            System.out.println("****** Rabin-Karp ******");
-            System.out.println(dataType);
-            System.out.println("DNA Length: " + bufferedReader.readLine());
+
             while (!bufferedReader.readLine().equals("DNA")) {
             }
             demo = bufferedReader.readLine();
@@ -38,43 +39,31 @@ public class RabinKarp {
                 demo = bufferedReader.readLine();
             }
             StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
-            int q = 13;
+            int primeDigit = 13;
 
-        /*for(int i=0; i<run; i++){
-            long startTime1 = System.currentTimeMillis();
-            search(dna.toString(), pattern.toString(), q);
-            long endTime1 = System.currentTimeMillis();
-            long totalTime1 = endTime1 - startTime1;
-            time.add(totalTime1);
-        }*/
+            search(dna.toString().toCharArray(), pattern.toString().toCharArray(), primeDigit, indexRabinKarp);
 
-
-
-        search(dna.toString(), pattern.toString(), q);
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
-            System.out.println("Time taken by Rabin-Karp ---->   " + totalTime + " milliseconds");
-            System.out.println("-----------------------------------------------------------------------------------------");
 
             time.add(totalTime);
         }
-
-        System.out.println("TIME RABIN KARP: " + time);
+        return time;
     }
 
     /***** Matching Phase *****/
     // Function checks whether pattern occurs in DNA or not
     // If yes then find all the occurrences of the pattern in DNA
-    public static void search(String dna, String pattern, int q) {
+    public static void search(char[] dna, char[] pattern, int q, HashSet<Integer> indexRabinKarp) {
 
         int i, j;
         int index = 0;
-        int patternLength = pattern.length();
-        int dnaLength = dna.length();
+        int patternLength = pattern.length;
+        int dnaLength = dna.length;
         int patternHash = 0;
         int dnaHash = 0;
         int h = 1;
-        ArrayList<Integer> patternOccurrenceIndex = new ArrayList<>();
+//        ArrayList<Integer> indexRabinKarp = new ArrayList<>();
 
         for (i = 0; i < patternLength - 1; i++) {
             h = (h * d) % q;
@@ -82,8 +71,8 @@ public class RabinKarp {
 
         // Calculate hash value for pattern and DNA
         for (i = 0; i < patternLength; i++) {
-            patternHash = (d * patternHash + pattern.charAt(i)) % q;
-            dnaHash = (d * dnaHash + dna.charAt(i)) % q;
+            patternHash = (d * patternHash + pattern[i]) % q;
+            dnaHash = (d * dnaHash + dna[i]) % q;
         }
 
         // Find the match
@@ -94,20 +83,21 @@ public class RabinKarp {
             // if yes then check the individual element is equivalent or not
             if (patternHash == dnaHash) {
                 for (j = 0; j < patternLength; j++) {
-                    if (dna.charAt(index + j) != pattern.charAt(j))
+                    if (dna[index+j] != pattern[j]){
                         break;
+                    }
                 }
 
                 // if pattern found then add the index of DNA to the ArrayList
                 if (j == patternLength) {
-                    patternOccurrenceIndex.add(index);
+                    indexRabinKarp.add(index);
                 }
             }
 
             if (index < dnaLength - patternLength) {
 
                 // Calculates the hash value for next substring of DNA in order to find pattern
-                dnaHash = (d * (dnaHash - dna.charAt(index) * h) + dna.charAt(index + patternLength)) % q;
+                dnaHash = (d * (dnaHash - dna[index] * h) + dna[index + patternLength]) % q;
 
                 if (dnaHash < 0) {
                     dnaHash = (dnaHash + q);
@@ -115,7 +105,5 @@ public class RabinKarp {
             }
             index++;
         }
-
-        System.out.println(patternOccurrenceIndex);
     }
 }

@@ -110,25 +110,25 @@ public class Generator {
 
 
         countFreqForTwoGrams(sequence);
-        System.out.println(freqTwoGrams); // Count the frequencies of AA, AC, AG, AT, CA, CC etc.
+//        System.out.println(freqTwoGrams); // Count the frequencies of AA, AC, AG, AT, CA, CC etc.
 
 
         totalFreqForTwoGrams();
 //		Let total[A] = count[AA] + count[AC] + count[AG] + count[AT]
-        System.out.println(totalFreqTwoGrams);
+//        System.out.println(totalFreqTwoGrams);
 
 
         countProbabilityForTwoGrams();
-        System.out.println(probababilityTwoGrams);
+//        System.out.println(probababilityTwoGrams);
 
         countInitProbability(sequence);
 
         // initial probabilities of A,C,G,T respectively.
-        System.out.println(Arrays.toString(initProbability));
+//        System.out.println(Arrays.toString(initProbability));
 
         generateProbMatrix();
 
-        System.out.println("Model Made..");
+        System.out.println("\nModel Creation Completed..");
         System.out.println();
     }
 
@@ -151,7 +151,7 @@ public class Generator {
             prev = generatedOutput.charAt(i - 1); // to keep track of previous character
             generatedOutput.append(generateCharacter(prev));
         }
-        System.out.println("String Generated Based on Model.. ");
+        System.out.println("DNA String Generated Based on Model: ");
         System.out.println(generatedOutput.toString());
     }
 
@@ -178,9 +178,9 @@ public class Generator {
         Scanner sc = new Scanner(System.in);
         int length = 0;
         try {
-            System.out.println("Enter Training file for DNA: ");
+            System.out.println("Enter training file for DNA: ");
             String fileName = sc.nextLine();
-            bufferedReader = new BufferedReader(new FileReader("./Data/Training DNA/" + fileName));
+            bufferedReader = new BufferedReader(new FileReader("Data/Training DNA/" + fileName));
             System.out.println("Enter desired length of DNA: ");
             length = sc.nextInt();
         } catch (InputMismatchException e) {

@@ -1,15 +1,19 @@
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class KMP {
 
     static ArrayList<Long> time = new ArrayList<>();
 
-    public static void function(String filePath, String dataType, int run) throws IOException {
+    public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexKMP) throws IOException {
 
-        for(int i=0; i<run; i++){
+        for (int i = 0; i < run; i++) {
+
             long startTime = System.currentTimeMillis();
 
             StringBuilder dna = new StringBuilder();
@@ -22,9 +26,6 @@ public class KMP {
                 System.out.println("File does not exist");
                 System.exit(0);
             }
-            System.out.println("****** Knuth-Morris-Pratt ******");
-            System.out.println(dataType);
-            System.out.println("DNA Length: " + bufferedReader.readLine());
             while (!bufferedReader.readLine().equals("DNA")) {
             }
             demo = bufferedReader.readLine();
@@ -34,29 +35,13 @@ public class KMP {
             }
             StringBuilder pattern = new StringBuilder(bufferedReader.readLine());
 
-            /*for(int i=0; i<run; i++){
-                long startTime1 = System.currentTimeMillis();
-                search(dna.toString(), pattern.toString());
-                long endTime1 = System.currentTimeMillis();
-                long totalTime1 = endTime1 - startTime1;
-                time.add(totalTime1);
-            }*/
-
-
-
-
-        search(dna.toString(), pattern.toString());
+            search(dna.toString().toCharArray(), pattern.toString().toCharArray(), indexKMP);
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
-            System.out.println("Time taken by KMP ---->   " + totalTime + " milliseconds");
-            System.out.println("-----------------------------------------------------------------------------------------");
 
             time.add(totalTime);
         }
-
-        System.out.println("TIME KMP: " + time);
-
-
+        return time;
     }
     /*
      * @param dna - Input DNA sequence
@@ -70,10 +55,10 @@ public class KMP {
      * The method prints the list at the end.
      */
 
-    static void search(String dna, String pattern) {
-        ArrayList<Integer> patternOccurrenceIndex = new ArrayList<Integer>();
-        int dnaLength = dna.length();
-        int patLength = pattern.length();
+    static void search(char[] dna, char[] pattern, HashSet<Integer> indexKMP) {
+
+        int dnaLength = dna.length;
+        int patLength = pattern.length;
 
         int[] lps = new int[patLength];
 
@@ -83,27 +68,23 @@ public class KMP {
 
         for (int i = 0; i < dnaLength; ) {
             // If character match, increment.
-            if (pattern.charAt(j) == dna.charAt(i)) {
+            if (pattern[j] == dna[i]) {
                 j++;
                 i++;
             }
             if (j == patLength) {
-                patternOccurrenceIndex.add(i - j);
-                /*
-                 * iterator j over pattern will switch to index lps[j - 1] and later continue to
-                 * find other occurences of pattern
-                 */
+                indexKMP.add(i - j);
+                 /*iterator j over pattern will switch to index lps[j - 1] and later continue to
+                 find other occurences of pattern*/
                 j = lps[j - 1];
-            }
-            // If mismatch :
-            else if (i < dnaLength && pattern.charAt(j) != dna.charAt(i)) {
-                if (j != 0)
+            } else if (i < dnaLength && pattern[j] != dna[i]) {  // If mismatch :
+                if (j != 0){
                     j = lps[j - 1]; // j looks into lps, will go to index which is lps[j-1].
-                else
+                } else{
                     i = i + 1; // if they anyhow do not match, i will increment and not backtrack.
+                }
             }
         }
-        System.out.println(patternOccurrenceIndex);
     }
 
     /*
@@ -127,23 +108,21 @@ public class KMP {
      *
      */
 
-    static void computeLPS(String pattern, int patternLength, int lps[]) {
+    static void computeLPS(char[] pattern, int patternLength, int lps[]) {
         // length of the previous longest prefix suffix
         int len = 0;
         lps[0] = 0; // lps[0] is always 0
 
         // the loop calculates lps[i] for i = 1 to M-1
         for (int i = 1; i < patternLength; ) {
-            if (pattern.charAt(i) == pattern.charAt(len)) {
+            if (pattern[i] == pattern[len]) {
                 len++;
                 lps[i] = len;
                 i++;
-            } else // (pat[i] != pat[len])
-            {
+            } else {  // (pat[i] != pat[len])
                 if (len != 0) {
                     len = lps[len - 1];
-                } else // if (len == 0)
-                {
+                } else { // if (len == 0)
                     lps[i] = len;
                     i++;
                 }
