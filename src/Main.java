@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -10,13 +11,18 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter file name: ");
         String fileName = sc.nextLine();
-        int run=1;
+        int run = 1;
 
         try {
             System.out.println("Enter desired run for algorithms: ");
             run = sc.nextInt();
+            if(run < 1){
+                System.out.println("Invalid length for DNA");
+                System.exit(0);
+            }
         } catch (InputMismatchException e) {
             System.out.println("Invalid length for DNA");
+            System.exit(0);
         }
 
         String[] seperate = fileName.split("\\.");
@@ -33,26 +39,6 @@ public class Main {
         HashSet<Integer> indexKMP = new HashSet<>();
         HashSet<Integer> indexQuick = new HashSet<>();
 
-
-        /*for (char c : fdash) {
-            if (c == 'r') {
-
-                printDataInfo("Real Data", fileName, run);
-
-                naiveTime = Naive.function("Data/Real Data/" + fileName, "Real Data", run, indexNaive);
-                rabinKarpTime = RabinKarp.function("Data/Real Data/" + fileName, "Real Data", run, indexRabinKarp);
-                kmpTime = KMP.function("Data/Real Data/" + fileName, "Real Data", run, indexKMP);
-                quickTime = Quick.function("Data/Real Data/" + fileName, "Real Data", run, indexQuick);
-            } else if (c == 's') {
-
-                printDataInfo("Synthetic Data", fileName, run);
-
-                naiveTime = Naive.function("Data/Synthetic Data/" + fileName, "Synthetic Data", run, indexNaive);
-                rabinKarpTime = RabinKarp.function("Data/Synthetic Data/" + fileName, "Synthetic Data", run,indexRabinKarp);
-                kmpTime = KMP.function("Data/Synthetic Data/" + fileName, "Synthetic Data", run, indexKMP);
-                quickTime = Quick.function("Data/Synthetic Data/" + fileName, "Synthetic Data", run, indexQuick);
-            }
-        }*/
         for (char c : fdash) {
             if (c == 'r') {
 
@@ -73,17 +59,20 @@ public class Main {
             }
         }
 
-        printIndexes(indexNaive, "Naive");
-        printIndexes(indexRabinKarp, "Rabin Karp");
-        printIndexes(indexKMP, "KMP");
-        printIndexes(indexQuick, "Quick Search");
+        if(indexNaive.size() != 0) {
 
-        System.out.println();
+            printIndexes(indexNaive, "Naive");
+            printIndexes(indexRabinKarp, "Rabin Karp");
+            printIndexes(indexKMP, "KMP");
+            printIndexes(indexQuick, "Quick Search");
 
-        average(naiveTime, "Naive Algorithm");
-        average(rabinKarpTime, "Rabin Karp Algorithm");
-        average(kmpTime, "KMP Algorithm");
-        average(quickTime, "Quick Search Algorithm");
+            System.out.println();
+
+            average(naiveTime, "Naive Algorithm");
+            average(rabinKarpTime, "Rabin Karp Algorithm");
+            average(kmpTime, "KMP Algorithm");
+            average(quickTime, "Quick Search Algorithm");
+        }
 
         sc.close();
     }
@@ -94,7 +83,7 @@ public class Main {
 
         try {
             bufferedReader = new BufferedReader(new FileReader("Data/" + dataType + "/" + fileName));
-        } catch (IOException ioException) {
+        }catch (IOException ioException) {
             System.out.println("File does not exist");
             System.exit(0);
         }
