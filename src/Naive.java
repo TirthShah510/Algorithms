@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,6 +6,7 @@ import java.util.HashSet;
 
 public class Naive {
 
+    // Stores the time taken by each run of algorithm.
     static ArrayList<Long> time = new ArrayList<>();
 
     /***** Driver Phase *****/
@@ -49,6 +48,18 @@ public class Naive {
 
     }
 
+    /*
+     * @param dna - Input DNA sequence
+     *
+     * @param pattern - Input pattern to be searched.
+     *
+     * @param indexNaive - Stores the indexes of occurrence of pattern.
+     *
+     * This method carries out the matching of pattern in DNA sequence.
+     *
+     * The algorithm will calculate the matching indexes, if found, add them to list.
+     */
+
     /***** Matching Phase*****/
     public static void search(char[] dna, char[] pattern, HashSet<Integer> indexNaive) {
 
@@ -62,7 +73,6 @@ public class Naive {
              * For current index i, check for pattern match
              */
             for (j = 0; j < patternLength; j++) {
-
                 if(dna[i+j] != pattern[j]){
                     break;
                 }

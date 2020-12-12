@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public class RabinKarp {
 
+    // Stores the time taken by each run of algorithm.
     static ArrayList<Long> time = new ArrayList<>();
 
     // selected base value for calculating the hash value
@@ -50,9 +51,21 @@ public class RabinKarp {
         return time;
     }
 
+    /*
+     * @param dna - Input DNA sequence
+     *
+     * @param pattern - Input pattern to be searched.
+     *
+     * @param indexRabinKarp - Stores the indexes of occurrence of pattern.
+     *
+     * This method carries out the matching of pattern in DNA sequence. Before
+     * matching starts, the algorithm computes initial hash function for pattern and
+     * first substring of DNA.
+     *
+     * Subsequently, the algorithm will calculate the matching indexes, if found, add them to list.
+     */
+
     /***** Matching Phase *****/
-    // Function checks whether pattern occurs in DNA or not
-    // If yes then find all the occurrences of the pattern in DNA
     public static void search(char[] dna, char[] pattern, HashSet<Integer> indexRabinKarp) {
 
         int i, j;
@@ -95,6 +108,20 @@ public class RabinKarp {
             index++;
         }
     }
+
+    /*
+     * @param index - Index of current character of the DNA.
+     *
+     * @param dnaLength - Length of the DNA.
+     *
+     * @param patternLength - Length of the Pattern.
+     *
+     * @param dnaHash - Hash function of current substring of DNA.
+     *
+     * @param dna - Input DNA sequence
+     *
+     * This method carries out the computation hash function for the substring of DNA.
+     */
 
     /***** Hash Function *****/
     private static int computeHash(int index, int dnaLength, int patternLength, int dnaHash, char[] dna, int h) {

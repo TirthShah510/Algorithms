@@ -6,13 +6,15 @@ import java.util.HashSet;
 
 class Quick {
 
+    // Stores the time taken by each run of algorithm.
     static ArrayList<Long> time = new ArrayList<>();
 
     static int Chars = 256;
 
     /***** Driver Phase *****/
     // Function to read the DNA string and Pattern from the user given file
-    public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexQuick) throws IOException {
+    public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexQuick)
+            throws IOException {
 
         for (int i = 0; i < run; i++) {
 
@@ -48,10 +50,15 @@ class Quick {
         return time;
     }
 
+    /*
+     * @param dna - Input DNA sequence
+     *
+     * @param pattern - Input pattern to be searched.
+     *
+     * This method carries to find the last occurrence of the character in the pattern string.
+     */
 
     /***** Pre-Processing Phase *****/
-    //The Pre-processing function for Quick search algorithm
-    //Function to find the last occurrence of the character in the pattern string
     public static void lastOccurrenceChar(char[] pattern, int indexLastOccurChar[]) {
 
         // Fill the correct index of last occurrence of the given character
@@ -59,6 +66,18 @@ class Quick {
             indexLastOccurChar[(int) pattern[i]] = pattern.length - i - 1;
         }
     }
+
+    /*
+     * @param dna - Input DNA sequence
+     *
+     * @param pattern - Input pattern to be searched.
+     *
+     * @param indexQuick - Stores the indexes of occurrence of pattern.
+     * This method carries out the matching of pattern in DNA sequence. Before
+     * matching starts, the algorithm computes last occurrence (as per index) of the distinct character from pattern.
+     *
+     * Subsequently, the algorithm will calculate the matching indexes, if found, add them to list.
+     */
 
     /***** Pattern Matching Phase *****/
     // Function to search occurrence of the pattern in the DNA

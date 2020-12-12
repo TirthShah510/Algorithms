@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,8 +6,10 @@ import java.util.HashSet;
 
 public class KMP {
 
+    // Stores the time taken by each run of algorithm.
     static ArrayList<Long> time = new ArrayList<>();
 
+    /***** Driver Phase *****/
     public static ArrayList<Long> function(String filePath, String dataType, int run, HashSet<Integer> indexKMP) throws IOException {
 
         for (int i = 0; i < run; i++) {
@@ -48,13 +48,15 @@ public class KMP {
      *
      * @param pattern - Input pattern to be searched.
      *
+     * @param indexKMP - Stores the indexes of occurrence of pattern.
+     *
      * This method carries out the matching of pattern in DNA sequence. Before
      * matching starts, the algorithm calls pre-processing method to calculate lps[]
      * values.
      * Subsequently, the algorithm will calculate the matching indexes, if found, add them to list.
-     * The method prints the list at the end.
      */
 
+    /***** Matching Phase *****/
     static void search(char[] dna, char[] pattern, HashSet<Integer> indexKMP) {
 
         int dnaLength = dna.length;
@@ -74,13 +76,15 @@ public class KMP {
             }
             if (j == patLength) {
                 indexKMP.add(i - j);
+
                  /*iterator j over pattern will switch to index lps[j - 1] and later continue to
-                 find other occurences of pattern*/
+                 find other occurrences of pattern*/
+
                 j = lps[j - 1];
             } else if (i < dnaLength && pattern[j] != dna[i]) {  // If mismatch :
-                if (j != 0){
+                if (j != 0) {
                     j = lps[j - 1]; // j looks into lps, will go to index which is lps[j-1].
-                } else{
+                } else {
                     i = i + 1; // if they anyhow do not match, i will increment and not backtrack.
                 }
             }
@@ -108,6 +112,7 @@ public class KMP {
      *
      */
 
+    /***** Pre-Processing Phase *****/
     static void computeLPS(char[] pattern, int patternLength, int lps[]) {
         // length of the previous longest prefix suffix
         int len = 0;

@@ -5,9 +5,10 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class Generator {
+
     HashMap<String, Integer> freqTwoGrams = new HashMap<>();
     HashMap<String, Integer> totalFreqTwoGrams = new HashMap<String, Integer>();
-    HashMap<String, Float> probababilityTwoGrams = new HashMap<>();
+    HashMap<String, Float> probabilityTwoGrams = new HashMap<>();
     HashMap<Character, Integer> freqSingleChar = new HashMap<>();
 
     float[][] probabilityMatrix = new float[4][4];
@@ -58,7 +59,7 @@ public class Generator {
                 StringBuilder gram = new StringBuilder(Character.toString(characters[i])).append(characters[j]);
                 float prob = (float) freqTwoGrams.get(gram.toString()) /
                         totalFreqTwoGrams.get(Character.toString(characters[i]));
-                probababilityTwoGrams.put(gram.toString(), prob);
+                probabilityTwoGrams.put(gram.toString(), prob);
             }
         }
     }
@@ -85,6 +86,7 @@ public class Generator {
        G  0.17  0.40  0.23  0.20  =  1.00
        T  0.31  0.24  0.29  0.16  =  1.00
     */
+    // matrix[0][1] (Row: 0 and Column: 1) = p(C|A) = Probability of C given A.
     // matrix[A][A] = p(A|A) -> It denotes the conditional probability of A followed by A.
 
     public void generateProbMatrix() {
@@ -92,7 +94,7 @@ public class Generator {
         for (int i = 0; i < probabilityMatrix.length; i++) {
             for (int j = 0; j < probabilityMatrix.length; j++) {
                 StringBuilder gram = new StringBuilder(Character.toString(characters[i])).append(characters[j]);
-                probabilityMatrix[i][j] = probababilityTwoGrams.get(gram.toString());
+                probabilityMatrix[i][j] = probabilityTwoGrams.get(gram.toString());
             }
         }
 
@@ -108,15 +110,12 @@ public class Generator {
     // Function to make call to all the methods to calculate markov model to generate DNA of desired length.
     public void learnChains(String sequence) {
 
-
         countFreqForTwoGrams(sequence);
 //        System.out.println(freqTwoGrams); // Count the frequencies of AA, AC, AG, AT, CA, CC etc.
-
 
         totalFreqForTwoGrams();
 //		Let total[A] = count[AA] + count[AC] + count[AG] + count[AT]
 //        System.out.println(totalFreqTwoGrams);
-
 
         countProbabilityForTwoGrams();
 //        System.out.println(probababilityTwoGrams);
