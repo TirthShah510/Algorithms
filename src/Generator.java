@@ -184,6 +184,7 @@ public class Generator {
             length = sc.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid length for DNA");
+            System.exit(0);
         } catch (IOException ioException) {
             System.out.println("File does not exist");
             System.exit(0);
@@ -195,8 +196,8 @@ public class Generator {
             line = bufferedReader.readLine();
         }
         Generator generator = new Generator();
-        generator.learnChains(sb.toString());
         if (length > 0) {
+            generator.learnChains(sb.toString());
             generator.generateSequence(length);
         } else {
             System.out.println("Invalid length for DNA");
